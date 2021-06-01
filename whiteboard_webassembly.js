@@ -13,7 +13,7 @@
 // after the generated code, you will need to define   var Module = {};
 // before the code. Then that object will be used in the code, and you
 // can continue to use Module afterwards as well.
-var Module = typeof window.Module !== 'undefined' ? window.Module : {};
+var Module = typeof Module !== 'undefined' ? Module : {};
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
@@ -187,7 +187,7 @@ var Module = typeof window.Module !== 'undefined' ? window.Module : {};
     }
   
    }
-   loadPackage({"files": [{"filename": "/assets/.DS_Store", "start": 0, "end": 6148, "audio": 0}, {"filename": "/assets/LoadingAnimation.png", "start": 6148, "end": 119638, "audio": 0}, {"filename": "/assets/LoadingAnimation.json", "start": 119638, "end": 124820, "audio": 0}, {"filename": "/assets/logService.txt", "start": 124820, "end": 126624, "audio": 0}], "remote_package_size": 126624, "package_uuid": "6e9b6f53-14bd-4515-bec2-85495e15bc7f"});
+   loadPackage({"files": [{"filename": "/assets/.DS_Store", "start": 0, "end": 6148, "audio": 0}, {"filename": "/assets/LoadingAnimation.png", "start": 6148, "end": 119638, "audio": 0}, {"filename": "/assets/LoadingAnimation.json", "start": 119638, "end": 124820, "audio": 0}, {"filename": "/assets/logService.txt", "start": 124820, "end": 126624, "audio": 0}], "remote_package_size": 126624, "package_uuid": "a95affae-e862-49c6-ba90-ce709088f850"});
   
   })();
   
