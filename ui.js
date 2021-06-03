@@ -7,7 +7,7 @@
     <span class="zoom ">
     <i onclick="GlobalMethod.change_gain(-1)">-</i><i onclick="GlobalMethod.change_gain(1)">+</i>
     </span>
-    <span class="delete" onclick="GlobalMethod.delete_doc">删除</span>
+    <span class="delete" onclick="GlobalMethod.delete_doc()">删除</span>
   </div>
   <div class="menu">
     <div class="" onclick="drawer(event)">
@@ -315,6 +315,7 @@ document.body.appendChild(div)
 })()
   // console.log('----controller',whiteboard.controller)
 let controller = whiteboard.controller
+let tool = (new whiteboard.Tool).constructor
 window.GlobalMethod = new class GlobalMethod {
   constructor(){
     this.is_undo = false
@@ -362,7 +363,6 @@ window.GlobalMethod = new class GlobalMethod {
     else key = `${this.selected_item}_selected`
     if (this[key] === item) return;
     this[key] = item
-    // console.log('key--------------------',this[key],this.selected_item,type)
     if(this.selected_item =='rubber') {
       return controller.set_erase_size(item || this.rubber_selected);
     }
@@ -398,7 +398,6 @@ rubber_undo(e){
   e.target.style.display = 'none'
 }
 change_gain(scale) {
-  console.log('----')
   controller.scale_widget({widgetId: this.activity_file.widgetId, scale});
 }
 switch_steady() {
@@ -406,53 +405,16 @@ switch_steady() {
 }
 
   upload_file(event) {
-    console.log('upload_file--',event.target.files[0])
-    // let file = obj.file, file_mes = tool.file_supported(file.name);
-    // if (!file_mes.is_support) return screen_instance.prompt_screen(`不支持上传的类型`, null, () => obj.controls.value = ``);
-    // if (file.size > 52428800) return screen_instance.prompt_screen(`上传的文件大小不能大于50M`, null, () => obj.controls.value = ``); 
-    // screen_instance.loading_screen(`文件上传中`);
-    // let resourceId = tool.generateUUID();
-    // if (file_mes.file_type) upload_file(file);
-    // else tool.image_processing(file, processed => upload_file(processed));
-    // function upload_file(processed) {
-    //   if (obj.origin === process.origin1) command.uploading_file({
-    //     resourceId: resourceId,
-    //     fileSize: processed.size,
-    //     fileType: file_mes.file_type,
-    //     extension: file_mes.extension,
-    //     command: `uploadingFileAction`
-    //   });
-    //   tool.spark_md5(processed, md5 => {
-    //     let fileGroupId = obj.superior.fileGroupId;
-    //     request.exist(md5, file.name, fileGroupId).then(objectName => {
-    //       if (objectName) addResource(objectName);
-    //       else {
-    //         let objectName = `${fileGroupId}/${tool.generateUUID()}.${file_mes.extension}`;
-    //         app_pool.obtain_oss_accessKey({superior: obj.superior, callback: accessKey => {
-    //           upload.multipartUpload(processed, {md5, name: file.name, resourceId, objectName, accessKey, callback: () => addResource(objectName)});
-    //         }})
-    //       }
-    //       function addResource(objectName) {
-    //         obj.controls.value = ``;
-    //         let userId = obj.superior.accountId || (obj.superior.session && obj.superior.session.userId)
-    //         let attach = {objectName, resourceId,userId};
-    //         if (obj.origin === process.origin2) attach.catalogId = obj.catalogId;
-    //         // obj.superior - store.session; app_pool.meetingInfo.message
-    //         request.addResource(process.resourceInfo(obj.superior.sessionId || obj.superior.session.sessionId, fileGroupId, file.name, attach))
-    //           .then(() => {
-    //             if (obj.callback) obj.callback();
-    //             if (screen_instance.loader) screen_instance.loader.close();
-    //           }).catch(msg => screen_instance.prompt_screen(msg, `error`))
-    //       }
-    //     })
-    //   })
-    // }
+    controller.upload_file({
+      file: event.target.files[0],
+      origin: 1,
+      superior: Object.assign(controller.room,controller.me),
+      controls: document.querySelector(`.upload_file`)
+    });
   }
   createPage(params) {
     let documents = params[0].documents
     this.documents = documents
-    console.log('coc',documents)
-    console.log('coc',documents)
     if(documents){
       document.querySelector('.page').innerHTML = `<div class="page-item page-add" onclick='GlobalMethod.page_operation(null,0)' style='background-color:#FFFFFF'>+</div>`
       documents.forEach((item,index)=>{
@@ -467,7 +429,7 @@ switch_steady() {
           </div>
         </div>
         `
-        div.onclick = this.page_turner
+        div.onclick = this.page_turner.bind(this)
         div.setAttribute('index',index) 
         // insertAfter(div,document.querySelector('.page-add'))
         document.querySelector('.page').appendChild(div)
@@ -476,7 +438,7 @@ switch_steady() {
 
   }
   page_turner(event) {
-    console.log('page_turner',event)
+
     // this.documents[Number(event.target.getAttribute('index'))].documentId
     controller.cut_document(this.documents[Number(event.target.getAttribute('index'))].documentId)
     // if (page.documentId !== this.active_documentId) command.cut_document(page.documentId);
@@ -488,8 +450,10 @@ switch_steady() {
     if (type === 2) controller.delete_document(this.documents[Number(event&&event.path[3].getAttribute('index'))].documentId)
     
   }
+  delete_doc(){
+    controller.delete_widget(this.activity_file.widgetId)
+  }
   cut_page(num) {
-    console.log('ddddddddddddd',num)
     // if (!this.permission.whiteboardOnOff) return;
     // document.querySelector('.page-right').innerHTML= '>'
     for(let i = 0; i < this.documents.length; i++) {
@@ -499,7 +463,7 @@ switch_steady() {
           return controller.new_document()
         };
         if (i === this.documents.length - 1 && num === -1) return;
-        // console.log(i - num)
+    
         return controller.cut_document(this.documents[i - num].documentId);
       }
     }
@@ -508,11 +472,12 @@ switch_steady() {
     // 二级菜单激活类型枚举（0 - 文档；1 - 文件；2 - 图片；3 - 图形；4 - 未知；5 - 选择；6 - svg；7 - 文字）
     this.activity_file = params
     let type = params.type
-let activation = (type) => {return Boolean([1, 2, 5, 6, 7].findIndex(item => item === type) !== -1);}
-console.log(type,activation(type))
+    let activation = (type) => {return Boolean([1, 2, 5, 6, 7].findIndex(item => item === type) !== -1);}
+    // console.log('widgetActivity',type,activation(type))
   if(activation(params.type)){
+    document.querySelector('.secondary_menu').style.display = 'flex'
     if(type === 5) {
-      document.querySelector('.secondary_menu').style.display = 'flex'
+     
       document.querySelector('.secondary_menu .steady').style.display = 'flex'
       document.querySelector('.secondary_menu .steady').innerHTML= params.steady ?'拆分' : '组合'
       if(params.steady){
@@ -523,7 +488,9 @@ console.log(type,activation(type))
     }
     if(params.type !== 5 && params.isDelete){
       document.querySelector('.secondary_menu .delete').style.display = 'block'
-    }
+    }else{
+        document.querySelector('.secondary_menu .delete').style.display = 'none'
+    } 
     
   }else{
     document.querySelector('.secondary_menu').style.display = 'none'
