@@ -1,23 +1,32 @@
-# Whiteboard WEB版本使用说明
+# Whiteboard WEB 版本使用说明
+
 ## 基本介绍
+
 ### 组成
-- webassembly二进制文件
-	- whiteboard_webassembly.wasm
-	- whiteboard_webassembly.data
-- 一个webassembly导入文件，与wasm文件同名
-	- (whiteboard_webassembly.js
-- whiteboard库
-	- whiteboard_sdk.js
+
+- webassembly 二进制文件
+  - whiteboard_webassembly.wasm
+  - whiteboard_webassembly.data
+- 一个 webassembly 导入文件，与 wasm 文件同名
+  - (whiteboard_webassembly.js
+- whiteboard 库
+
+  - whiteboard_sdk.js
 
 - 示例文件
-	- test.html
-	- test.index
+  - test.html
+  - test.index
+
 ### 需求
-- 能支持webassembly和webgl的浏览器（最近几年的主流浏览器基本上都支持)
+
+- 能支持 webassembly 和 webgl 的浏览器（最近几年的主流浏览器基本上都支持)
 
 ## 使用介绍
+
 ### 基本使用
-像test.html描述的那样，先在html中插入对sdk的引用，如：
+
+像 test.html 描述的那样，先在 html 中插入对 sdk 的引用，如：
+
 ```
 <html>
 <body>
@@ -26,9 +35,11 @@
 </html>
 
 ```
-此时whiteboard就已经被导入了，接下来可以调用`whiteboard.controller`来对白板进行初始化动作和控制了。
+
+此时 whiteboard 就已经被导入了，接下来可以调用`whiteboard.controller`来对白板进行初始化动作和控制了。
 
 初始化的流程可以看例子中的代码
+
 ```
 function addScript(url,isModule){
   let script = document.createElement("script");
@@ -58,7 +69,7 @@ window.Module = {};
 
 //下面的信息为进入房间的认证信息，由服务器端生成
 //加入房间所需要的token
-let token =  "xxxxxxxx-*d"; 
+let token =  "xxxxxxxx-*d";
 //当前程序的appId
 let appId =  "****";
 //要加入房间的meetingId
@@ -111,56 +122,112 @@ function processEvent(event,params)
 }
 
 ```
+
 ### 控制接口介绍
-以下接口都属于whiteboard.controller对象，调用时候都是以whiteboard.controller为开头，例如
+
+以下接口都属于 whiteboard.controller 对象，调用时候都是以 whiteboard.controller 为开头，例如
 whiteboard.controller.leave_room()等
+
 #### 加入房间
+
 ` join_room(appId,meetingId,userId,token)`
- - appId代表应用的ID
-- meetingId 房间的Id
-- userId 用户的Id
+
+- appId 代表应用的 ID
+- meetingId 房间的 Id
+- userId 用户的 Id
 - token 认证信息
 
+#### 通用属性
+
+`widgetId：需要修改页id`
+
 #### 离开房间
+
 `leave_room()`
 
-#### widget翻页
-`flip_widget(params)` 
-#### widget缩放
-  `scale_widget(params)`
-#### 删除widget
-`  delete_widget(widgetId) `
+#### widget 缩放
+
+`scale_widget({widgetId,scale})`
+`widgetId scale 1放大 -1缩小 `
+
+#### 删除 widget
+
+` delete_widget({widgetId})`
+
 #### 还原笔迹
+
 `rubber_undo()`
-#### 清空undo回收站
+
+#### 清空 undo 回收站
+
 `clear_recovery()`
+
 #### 设置白板输入模式属性
-`set_pen_style(params) `
+
+`set_pen_style({ type: 0 写字笔 ，1 荧光笔，（2，3，4，5，指针状态） , 
+color: `#FF+颜色 彩笔:#7F+颜色 `,
+size: 大小 }) `
 
 #### 设置白板输入模式
-`set_input_mode(mode)`
-#### 设置橡皮参数
-`set_erase_size(size)`
 
-#### 设置图形模式 
- 矩形 - 0 圆 - 1 线 - 3 箭头 - 6\
- `set_geometry_mode(mode)`
+`set_input_mode({mode})`
+// 普通模式
+mode = 0;
+// 橡皮模式
+mode = 1;
+// 选择模式
+mode = 2;
+// 图形模式
+mode = 3;
+// 文字模式
+mode = 4;
+
+#### 设置橡皮参数
+
+`set_erase_size({size})`
+size：数字大小
+
+#### 设置图形模式
+
+`set_geometry_mode({mode})`
+mode 矩形 - 0 圆 - 1 线 - 3 箭头 - 6
 
 #### 设置白板的背景色
- `set_whiteboard_back(theme)`
+
+`set_whiteboard_back({color})`
+#FF+颜色
+
 #### 新建文档
-  `new_document()`
+
+`new_document()`
+
 #### 切换文档
-`  cut_document(widgetId)`
+
+` cut_document(widgetId)`
+
 #### 插入文档
-`  insert_document(widgetId)`
+
+` insert_document(widgetId)`
+
 #### 删除文档
-`  delete_document(widgetId)`
+
+` delete_document(widgetId)`
+#### 文件上传
+` upload_file({
+	file: event.target.files[0]   （enent事件），
+   	superior: {
+		sessionId，
+		fileGroupId,
+		userId
+	}
+})`
 
 
 ### 事件回调接口介绍
+
 示例：
-``` javascript
+
+```javascript
 whiteboard.controller.registerEvent(whiteboard.controller.Event.AllEvent,processEvent);
 function processEvent(event,params)
 {
@@ -176,30 +243,45 @@ function processEvent(event,params)
    }
 }
 ```
+
 #### 事件参数说明:
+
 ##### PageListChanged
-	页面列表变更，例如有人新建或者删除页面
+
+    页面列表变更，例如有人新建或者删除页面
 
 ##### PageChanged
-	当前显示页面发生变更，例如翻页会触发此动作
+
+    当前显示页面发生变更，例如翻页会触发此动作
 
 ###### WhiteboardSizeChanged
-	白板的尺寸发生变更
-#####            JoinRoomError
-	加入房间失败
 
-#####            DocumentChange
-	文档发生变更
-#####            BackgroundChange
-	背景色发生变更
+    白板的尺寸发生变更
 
-#####            WidgetActivity
-	当前的活动widget发生变更
-#####            FileFlip
-	当前widget被翻页
+##### JoinRoomError
 
-#####            RecoveryState
-	橡皮的可还原状态发生变更
-#####            WidgetAction
-	有文件发生变化，例如插入、删除等
+    加入房间失败
 
+##### DocumentChange
+
+    文档发生变更
+
+##### BackgroundChange
+
+    背景色发生变更
+
+##### WidgetActivity
+
+    当前的活动widget发生变更
+
+##### FileFlip
+
+    当前widget被翻页
+
+##### RecoveryState
+
+    橡皮的可还原状态发生变更
+
+##### WidgetAction
+
+    有文件发生变化，例如插入、删除等
