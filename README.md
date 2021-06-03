@@ -65,11 +65,14 @@ let appId =  "****";
 let meetingId = "***";
 //用户信息
 let userId = "****"
+//初始化服务器地址，从这个地址获取登录信息
+let url = `https://sdktest.efaceboard.cn:8888/Chatboard/meeting/join`
 
 //初始化白板
-whiteboard.controller.initialize();
+whiteboard.controller.initialize(url);
 //注册白板的事件回调函数
 whiteboard.controller.registerEvent(whiteboard.controller.Event.AllEvent,processEvent);
+
 
 //加载webassembly代码
 addScript('./whiteboard_webassembly.js',false)
@@ -161,6 +164,9 @@ whiteboard.controller.leave_room()等
 ### 事件回调接口介绍
 示例：
 ``` javascript
+
+//事件注册
+//第一个参数是要注册的事件类型，allEvent表示要监听所有事件，如果要监听单一事件，请按照下面的参数说明来注册，第二个参数是要绑定的事件处理函数
 whiteboard.controller.registerEvent(whiteboard.controller.Event.AllEvent,processEvent);
 function processEvent(event,params)
 {
@@ -175,6 +181,11 @@ function processEvent(event,params)
 	...
    }
 }
+
+//事件注销
+//第一个参数是事件名称,AllEvent代表所有，其他单一事件参考下面的参数说明;第二个参数是具体的绑定函数
+whiteboard.controller.unregisterEvent(whiteboard.controller.Event.AllEvent,processEvent);
+
 ```
 #### 事件参数说明:
 ##### PageListChanged
