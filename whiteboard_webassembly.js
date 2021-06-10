@@ -187,7 +187,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
     }
   
    }
-   loadPackage({"files": [{"filename": "/assets/.DS_Store", "start": 0, "end": 6148, "audio": 0}, {"filename": "/assets/LoadingAnimation.png", "start": 6148, "end": 119638, "audio": 0}, {"filename": "/assets/LoadingAnimation.json", "start": 119638, "end": 124820, "audio": 0}, {"filename": "/assets/logService.txt", "start": 124820, "end": 126624, "audio": 0}], "remote_package_size": 126624, "package_uuid": "a95affae-e862-49c6-ba90-ce709088f850"});
+   loadPackage({"files": [{"filename": "/assets/.DS_Store", "start": 0, "end": 6148, "audio": 0}, {"filename": "/assets/LoadingAnimation.png", "start": 6148, "end": 119638, "audio": 0}, {"filename": "/assets/LoadingAnimation.json", "start": 119638, "end": 124820, "audio": 0}, {"filename": "/assets/logService.txt", "start": 124820, "end": 126624, "audio": 0}], "remote_package_size": 126624, "package_uuid": "163ddb78-af3c-4e1d-a414-dada87430b67"});
   
   })();
   

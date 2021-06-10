@@ -19,6 +19,7 @@ function addCanvas()
 }
 //创建canvas对象，设置其ID为“canvas”，如果html已经创建好了对象，那这一步可以忽略
 addCanvas();
+// import {controller as whiteboard,Tool} from "../src/entry.js"
 
 
 //建立一个全局对象Module，用来初始化webassembly
@@ -73,7 +74,7 @@ function processEvent(event,params)
       GlobalMethod.createPage(params)
       break;
     case whiteboard.controller.Event.PageChanged:
-      
+
       break;
     case whiteboard.controller.Event.WebassemblyReady:
       break;
@@ -83,6 +84,8 @@ function processEvent(event,params)
       break;
     case whiteboard.controller.Event.DocumentChange:
       GlobalMethod.documentChange(event,params)
+      console.log("background changed");
+      whiteboard.controller.set_whiteboard_back("#ffF5f5f5");
       break;
     case whiteboard.controller.Event.BackgroundChange:
       break;
