@@ -315,7 +315,6 @@ document.body.appendChild(div)
 })()
   // console.log('----controller',whiteboard.controller)
 let controller = whiteboard.controller
-let tool = (new whiteboard.Tool).constructor
 window.GlobalMethod = new class GlobalMethod {
   constructor(){
     this.is_undo = false
@@ -407,9 +406,7 @@ switch_steady() {
   upload_file(event) {
     controller.upload_file({
       file: event.target.files[0],
-      origin: 1,
       superior: Object.assign(controller.room,controller.me),
-      controls: document.querySelector(`.upload_file`)
     });
   }
   createPage(params) {
@@ -454,16 +451,10 @@ switch_steady() {
     controller.delete_widget(this.activity_file.widgetId)
   }
   cut_page(num) {
-    // if (!this.permission.whiteboardOnOff) return;
-    // document.querySelector('.page-right').innerHTML= '>'
     for(let i = 0; i < this.documents.length; i++) {
       if (this.documents[i].documentId === controller.documentId) {
-        if (i === 0 && num === 1) {
-          
-          return controller.new_document()
-        };
+        if (i === 0 && num === 1) { return controller.new_document()};
         if (i === this.documents.length - 1 && num === -1) return;
-    
         return controller.cut_document(this.documents[i - num].documentId);
       }
     }
@@ -499,7 +490,7 @@ switch_steady() {
 }
 documentChange(commands, params){
   console.log('documentChange',params,this.documents)
-  this.documentId = params.widgetId;
+  if(params.widgetId)controller.documentId = params.widgetId;
   // let index = this.documents.findIndex((item)=>item.documentId==params.widgetId)
   this.documents.forEach((item,index_)=>{
     if(item.documentId == params.widgetId){
