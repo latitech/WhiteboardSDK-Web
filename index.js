@@ -25,21 +25,20 @@ addCanvas();
 //建立一个全局对象Module，用来初始化webassembly
 window.Module = {};
 
-/*
 //七牛测试服务器
 
 //下面的信息为进入房间的认证信息，由服务器端生成
 //当前程序的appId
-let appId =  "fd3c029d48a64afeb5b46c24aedc2995";
+let appId =  "a4b26ecae3744e3fb60ff679e186cd98";
 //要加入房间的meetingId
-let meetingId = "aede5dfa1c194803b40799783b5d92c2";
+let meetingId = "ae4a29b6280e4c759fb2160cc6f5e3ec";
 //用户信息
-let userId = "test1";
+let userId = "test";
 //加入房间所需要的token
-let token =  "63e511d858589eab6d9e8a4d8029a1c0"; 
-let url = "`https://sdk.efaceboard.cn:8888/Chatboard/meeting/join`"
+let token =  "d024cbe961938bf2bb6e56355a96d2c9"; 
+let url = "https://sdk.efaceboard.cn:8888/Chatboard/meeting/join"
 
-*/
+/*
 
 //小黑板测试服务器
 //for sdktest
@@ -48,6 +47,7 @@ let appId =  "a4b26ecae3744e3fb60ff679e186cd98";
 let meetingId = "95daddc650294ddda5ea42d84dffe838";
 let userId = "0585184c-b515-4533-b146-1d39379e7d9a"
 let url = `https://sdktest.efaceboard.cn:8888/Chatboard/meeting/join`;
+*/
 
 //初始化白板
 whiteboard.controller.initialize(url);

@@ -191,7 +191,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
     }
   
    }
-   loadPackage({"files": [{"start": 0, "audio": 0, "end": 6774, "filename": "/assets/LoadingAnimation.json"}, {"start": 6774, "audio": 0, "end": 152927, "filename": "/assets/LoadingAnimation.png"}, {"start": 152927, "audio": 0, "end": 154731, "filename": "/assets/logService.txt"}], "remote_package_size": 154731, "package_uuid": "7121c42d-75b9-4559-8f74-b4b2a5e75aa8"});
+   loadPackage({"files": [{"start": 0, "audio": 0, "end": 6774, "filename": "/assets/LoadingAnimation.json"}, {"start": 6774, "audio": 0, "end": 152927, "filename": "/assets/LoadingAnimation.png"}, {"start": 152927, "audio": 0, "end": 154731, "filename": "/assets/logService.txt"}], "remote_package_size": 154731, "package_uuid": "92771bf9-eb6a-41ac-b3d5-b0fa9d55cd32"});
   
   })();
   
@@ -819,8 +819,7 @@ var wasmMemory;
 // In the wasm backend, we polyfill the WebAssembly object,
 // so this creates a (non-native-wasm) table for us.
 var wasmTable = new WebAssembly.Table({
-  'initial': 10486,
-  'maximum': 10486 + 0,
+  'initial': 10488,
   'element': 'anyfunc'
 });
 
@@ -1421,11 +1420,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 10542512,
+    STACK_BASE = 10543424,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 5299632,
-    DYNAMIC_BASE = 10542512,
-    DYNAMICTOP_PTR = 5299472;
+    STACK_MAX = 5300544,
+    DYNAMIC_BASE = 10543424,
+    DYNAMICTOP_PTR = 5300384;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1435,7 +1434,7 @@ assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
 var TOTAL_STACK = 5242880;
 if (Module['TOTAL_STACK']) assert(TOTAL_STACK === Module['TOTAL_STACK'], 'the stack size can no longer be determined at runtime')
 
-var INITIAL_TOTAL_MEMORY = Module['TOTAL_MEMORY'] || 268435456;if (!Object.getOwnPropertyDescriptor(Module, 'TOTAL_MEMORY')) Object.defineProperty(Module, 'TOTAL_MEMORY', { configurable: true, get: function() { abort('Module.TOTAL_MEMORY has been replaced with plain INITIAL_TOTAL_MEMORY') } });
+var INITIAL_TOTAL_MEMORY = Module['TOTAL_MEMORY'] || 16777216;if (!Object.getOwnPropertyDescriptor(Module, 'TOTAL_MEMORY')) Object.defineProperty(Module, 'TOTAL_MEMORY', { configurable: true, get: function() { abort('Module.TOTAL_MEMORY has been replaced with plain INITIAL_TOTAL_MEMORY') } });
 
 assert(INITIAL_TOTAL_MEMORY >= TOTAL_STACK, 'TOTAL_MEMORY should be larger than TOTAL_STACK, was ' + INITIAL_TOTAL_MEMORY + '! (TOTAL_STACK=' + TOTAL_STACK + ')');
 
@@ -1954,7 +1953,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 5298608;
+// STATICTOP = STATIC_BASE + 5299520;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -4830,7 +4829,7 @@ var ASM_CONSTS = {
     }
 
   
-  var ___tm_formatted=5299552;
+  var ___tm_formatted=5300464;
   
   
   
@@ -5896,7 +5895,7 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 5299472;
+      return 5300384;
     }
 
   
@@ -9464,10 +9463,10 @@ var ASM_CONSTS = {
     }
 
   
-  var ___tm_current=5299488;
+  var ___tm_current=5300400;
   
   
-  var ___tm_timezone=(stringToUTF8("GMT", 5299536, 4), 5299536);function _localtime_r(time, tmPtr) {
+  var ___tm_timezone=(stringToUTF8("GMT", 5300448, 4), 5300448);function _localtime_r(time, tmPtr) {
       _tzset();
       var date = new Date(HEAP32[((time)>>2)]*1000);
       HEAP32[((tmPtr)>>2)]=date.getSeconds();
