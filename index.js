@@ -85,7 +85,6 @@ function processEvent(event,params)
     case whiteboard.controller.Event.DocumentChange:
       GlobalMethod.documentChange(event,params)
       console.log("background changed");
-      whiteboard.controller.set_whiteboard_back("#ffF5f5f5");
       break;
     case whiteboard.controller.Event.BackgroundChange:
       break;
