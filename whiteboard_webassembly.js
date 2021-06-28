@@ -191,7 +191,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
     }
   
    }
-   loadPackage({"files": [{"start": 0, "audio": 0, "end": 6774, "filename": "/assets/LoadingAnimation.json"}, {"start": 6774, "audio": 0, "end": 152927, "filename": "/assets/LoadingAnimation.png"}, {"start": 152927, "audio": 0, "end": 154731, "filename": "/assets/logService.txt"}], "remote_package_size": 154731, "package_uuid": "09a1ec37-d1ac-44b3-9d77-708a799e3995"});
+   loadPackage({"files": [{"start": 0, "audio": 0, "end": 6774, "filename": "/assets/LoadingAnimation.json"}, {"start": 6774, "audio": 0, "end": 152927, "filename": "/assets/LoadingAnimation.png"}, {"start": 152927, "audio": 0, "end": 154731, "filename": "/assets/logService.txt"}], "remote_package_size": 154731, "package_uuid": "3197d477-d972-459d-8395-1a1f0c7972c7"});
   
   })();
   
