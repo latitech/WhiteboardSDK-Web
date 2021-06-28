@@ -191,7 +191,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
     }
   
    }
-   loadPackage({"files": [{"start": 0, "audio": 0, "end": 6774, "filename": "/assets/LoadingAnimation.json"}, {"start": 6774, "audio": 0, "end": 152927, "filename": "/assets/LoadingAnimation.png"}, {"start": 152927, "audio": 0, "end": 154731, "filename": "/assets/logService.txt"}], "remote_package_size": 154731, "package_uuid": "92771bf9-eb6a-41ac-b3d5-b0fa9d55cd32"});
+   loadPackage({"files": [{"start": 0, "audio": 0, "end": 6774, "filename": "/assets/LoadingAnimation.json"}, {"start": 6774, "audio": 0, "end": 152927, "filename": "/assets/LoadingAnimation.png"}, {"start": 152927, "audio": 0, "end": 154731, "filename": "/assets/logService.txt"}], "remote_package_size": 154731, "package_uuid": "1d17aa66-820e-4c3d-a522-b158a29c3965"});
   
   })();
   
@@ -819,7 +819,7 @@ var wasmMemory;
 // In the wasm backend, we polyfill the WebAssembly object,
 // so this creates a (non-native-wasm) table for us.
 var wasmTable = new WebAssembly.Table({
-  'initial': 10488,
+  'initial': 10482,
   'element': 'anyfunc'
 });
 
@@ -1420,11 +1420,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 10543424,
+    STACK_BASE = 10542928,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 5300544,
-    DYNAMIC_BASE = 10543424,
-    DYNAMICTOP_PTR = 5300384;
+    STACK_MAX = 5300048,
+    DYNAMIC_BASE = 10542928,
+    DYNAMICTOP_PTR = 5299888;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1953,7 +1953,7 @@ var ASM_CONSTS = {
 
 
 
-// STATICTOP = STATIC_BASE + 5299520;
+// STATICTOP = STATIC_BASE + 5299024;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -4829,7 +4829,7 @@ var ASM_CONSTS = {
     }
 
   
-  var ___tm_formatted=5300464;
+  var ___tm_formatted=5299968;
   
   
   
@@ -5895,7 +5895,7 @@ var ASM_CONSTS = {
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 5300384;
+      return 5299888;
     }
 
   
@@ -9463,10 +9463,10 @@ var ASM_CONSTS = {
     }
 
   
-  var ___tm_current=5300400;
+  var ___tm_current=5299904;
   
   
-  var ___tm_timezone=(stringToUTF8("GMT", 5300448, 4), 5300448);function _localtime_r(time, tmPtr) {
+  var ___tm_timezone=(stringToUTF8("GMT", 5299952, 4), 5299952);function _localtime_r(time, tmPtr) {
       _tzset();
       var date = new Date(HEAP32[((time)>>2)]*1000);
       HEAP32[((tmPtr)>>2)]=date.getSeconds();
