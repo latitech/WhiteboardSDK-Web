@@ -148,6 +148,15 @@ whiteboard.controller.leave_room()等
 
 `leave_room()`
 
+#### 挂载canvas
+
+elementId 挂载canvas的父元素标签Id
+`mountCanvas(elementId)`
+
+#### 卸载canvas
+
+`unload()`
+
 #### widget 缩放
 
 `scale_widget({widgetId,scale})`
